@@ -63,6 +63,10 @@ class LitellmModel:
                 return litellm.completion(
                     model=self.config.model_name, base_url=os.environ["OPENAI_BASE_URL"], messages=messages, reasoning_effort="high", **(self.config.model_kwargs | kwargs)
                 )
+            elif "deepseek-chat" in self.config.model_name:
+                return litellm.completion(
+                    model=self.config.model_name, base_url=os.environ["OPENAI_BASE_URL"], temperature=0.7, messages=messages, **(self.config.model_kwargs | kwargs)
+                )
             else:
                 return litellm.completion(
                     model=self.config.model_name, base_url=os.environ["OPENAI_BASE_URL"], messages=messages, **(self.config.model_kwargs | kwargs)
