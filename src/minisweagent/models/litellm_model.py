@@ -58,6 +58,7 @@ class LitellmModel:
     )
     def _query(self, messages: list[dict[str, str]], **kwargs):
         try:
+            print("dddddddddddddddddd", os.environ["OPENAI_BASE_URL"])
             if "gpt-5" in self.config.model_name:
                 return litellm.completion(
                     model=self.config.model_name, base_url=os.environ["OPENAI_BASE_URL"], messages=messages, reasoning_effort="high", **(self.config.model_kwargs | kwargs)
