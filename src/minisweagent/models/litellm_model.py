@@ -60,11 +60,11 @@ class LitellmModel:
         try:
             if "gpt-5" in self.config.model_name:
                 return litellm.completion(
-                    model=self.config.model_name, messages=messages, reasoning_effort="high", **(self.config.model_kwargs | kwargs)
+                    model=self.config.model_name, base_url=os.environ["OPENAI_API_KEY"], messages=messages, reasoning_effort="high", **(self.config.model_kwargs | kwargs)
                 )
             else:
                 return litellm.completion(
-                    model=self.config.model_name, messages=messages, **(self.config.model_kwargs | kwargs)
+                    model=self.config.model_name, base_url=os.environ["OPENAI_API_KEY"], messages=messages, **(self.config.model_kwargs | kwargs)
                 )
         except litellm.exceptions.AuthenticationError as e:
             e.message += " You can permanently set your API key with `mini-extra config set KEY VALUE`."
